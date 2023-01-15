@@ -1,6 +1,10 @@
 # Realm, Client, Token and Code Exchange
 
 ### Configure the realm and it's client application
+Endpoint discovery:
+```
+http://localhost:8080/realms/app/.well-known/uma2-configuration
+```
 
 1. Create a Realm with ID: app
 2. Add an user and set a password

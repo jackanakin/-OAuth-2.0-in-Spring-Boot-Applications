@@ -1,2 +1,2 @@
-# -OAuth-2.0-in-Spring-Boot-Applications
+# OAuth-2.0-in-Spring-Boot-Applications
 

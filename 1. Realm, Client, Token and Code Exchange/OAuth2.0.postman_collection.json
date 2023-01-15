@@ -1,0 +1,351 @@
+{
+	"info": {
+		"_postman_id": "31b528cd-d65f-4b76-9f68-8794a130f85c",
+		"name": "OAuth2.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "_ENDPOINTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/realms/app/.well-known/uma2-configuration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"app",
+						".well-known",
+						"uma2-configuration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1A. Code Grant Authorize",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/realms/app/protocol/openid-connect/auth?client_id=my-resource-server&redirect_uri=http://localhost:8081/callback&state=random_key&response_type=code&scope=openid",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"app",
+						"protocol",
+						"openid-connect",
+						"auth"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "my-resource-server"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8081/callback"
+						},
+						{
+							"key": "state",
+							"value": "random_key"
+						},
+						{
+							"key": "response_type",
+							"value": "code"
+						},
+						{
+							"key": "scope",
+							"value": "openid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1B. Exchange Code for Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code",
+							"value": "code_generated_at_code_grant_get",
+							"type": "default"
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "default"
+						},
+						{
+							"key": "client_id",
+							"value": "my-resource-server",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "client_secret_at_realm_settings",
+							"type": "default"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8081/callback",
+							"type": "default"
+						},
+						{
+							"key": "scope",
+							"value": "openid profile email phone",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/realms/app/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"app",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Password Grant Authorize",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "default"
+						},
+						{
+							"key": "client_id",
+							"value": "my-resource-server",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "client_secret_at_realm_settings",
+							"type": "default"
+						},
+						{
+							"key": "scope",
+							"value": "openid profile email phone",
+							"type": "default"
+						},
+						{
+							"key": "username",
+							"value": "jardel",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "mypassword_at_realm",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/realms/app/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"app",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3A. PKCE Code Grant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/realms/app/protocol/openid-connect/auth?client_id=my-resource-server&redirect_uri=http://localhost:8081/callback&state=some_random_state&response_type=code&scope=openid&code_challenge_method=S256&code_challenge=random_generated_code_challenge",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"app",
+						"protocol",
+						"openid-connect",
+						"auth"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "my-resource-server"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8081/callback"
+						},
+						{
+							"key": "state",
+							"value": "some_random_state"
+						},
+						{
+							"key": "response_type",
+							"value": "code"
+						},
+						{
+							"key": "scope",
+							"value": "openid"
+						},
+						{
+							"key": "code_challenge_method",
+							"value": "S256"
+						},
+						{
+							"key": "code_challenge",
+							"value": "random_generated_code_challenge"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3B. PKCE Exchange Code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "default"
+						},
+						{
+							"key": "client_id",
+							"value": "my-resource-server",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "client_secret_at_realm_settings",
+							"type": "default"
+						},
+						{
+							"key": "code",
+							"value": "code_generated_at_pkce_code_get",
+							"type": "default"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8081/callback",
+							"type": "default"
+						},
+						{
+							"key": "code_verifier",
+							"value": "generated_alongside_challenge_code",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/realms/app/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"app",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Client Credentials",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "default"
+						},
+						{
+							"key": "client_id",
+							"value": "my-resource-server",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "client_secret_at_realm_settings",
+							"type": "default"
+						},
+						{
+							"key": "scope",
+							"value": "openid profile email phone",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/realms/app/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"app",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

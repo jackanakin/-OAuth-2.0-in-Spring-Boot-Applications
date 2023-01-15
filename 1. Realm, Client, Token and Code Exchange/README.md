@@ -45,7 +45,7 @@ fetch("http://localhost:8080/realms/app/protocol/openid-connect/token", requestO
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
 ```
-### 2. Direct Access Grants Example
+### 2. Password Credentials Flow Example
 Client exchanges user/password directly for token
 * Check "Direct access grants" in realm settings
 * Post and get the token
@@ -98,6 +98,31 @@ urlencoded.append("client_secret", "client_secret");
 urlencoded.append("code", "code");
 urlencoded.append("redirect_uri", "http://localhost:8081/callback");
 urlencoded.append("code_verifier", "code_verifier");
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: urlencoded,
+  redirect: 'follow'
+};
+
+fetch("http://localhost:8080/realms/app/protocol/openid-connect/token", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+### 4. Client Credentials Flow
+Machine to machine flow
+```
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+myHeaders.append("Cookie", "AUTH_SESSION_ID_LEGACY=0a6ab074-78c5-4536-b3ce-16580f4cce4d");
+
+var urlencoded = new URLSearchParams();
+urlencoded.append("grant_type", "client_credentials");
+urlencoded.append("client_id", "my-resource-server");
+urlencoded.append("client_secret", "client_secret");
+urlencoded.append("scope", "openid profile email phone");
 
 var requestOptions = {
   method: 'POST',
